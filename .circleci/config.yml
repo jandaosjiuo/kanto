@@ -39,3 +39,27 @@ workflows:
                 - master
     jobs:
       - build1
+      
+version: 2.0 
+jobs1: 
+  build1: 
+    <<: *script 
+    docker: 
+      - image: ruby 
+ 
+workflows: 
+  version: 2 
+  commit: 
+    jobs1: 
+      - build1 
+      
+  schedule:
+    triggers:
+      - schedule:
+          cron: "25 1 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs1:
+      - build1
